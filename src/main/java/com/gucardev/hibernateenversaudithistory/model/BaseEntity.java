@@ -1,6 +1,5 @@
 package com.gucardev.hibernateenversaudithistory.model;
 
-
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -31,6 +30,4 @@ public abstract class BaseEntity {
   @LastModifiedDate
   @Column(name = "last_modified_date")
   private Date lastModifiedTime;
-
-
 }
