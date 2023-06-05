@@ -24,10 +24,10 @@ public abstract class BaseEntity {
   private Long id;
 
   @CreatedDate
-  @Column(name = "date_time")
-  private Date dateTime;
+  @Column(name = "created_date")
+  private Date createdDate;
 
   @LastModifiedDate
   @Column(name = "last_modified_date")
-  private Date lastModifiedTime;
+  private Date lastModifiedDate;
 }
