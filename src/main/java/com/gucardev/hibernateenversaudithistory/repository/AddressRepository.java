@@ -1,0 +1,6 @@
+package com.gucardev.hibernateenversaudithistory.repository;
+
+import com.gucardev.hibernateenversaudithistory.model.Address;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AddressRepository extends JpaRepository<Address, Long> {}
