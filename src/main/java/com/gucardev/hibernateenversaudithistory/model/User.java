@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @Audited
 @Entity
@@ -22,6 +23,7 @@ public class User extends BaseEntity {
   private String name;
   private String username;
 
+  @NotAudited
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<Address> addresses;
 
