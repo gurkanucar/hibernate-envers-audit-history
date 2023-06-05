@@ -1,6 +1,7 @@
 package com.gucardev.hibernateenversaudithistory.controller;
 
 import com.gucardev.hibernateenversaudithistory.dto.UserDTO;
+import com.gucardev.hibernateenversaudithistory.dto.UserHistoryDTO;
 import com.gucardev.hibernateenversaudithistory.dto.request.UserRequest;
 import com.gucardev.hibernateenversaudithistory.service.UserService;
 import java.util.List;
@@ -47,4 +48,10 @@ public class UserController {
   public void delete(@PathVariable Long id) {
     userService.delete(id);
   }
+
+  @GetMapping("/revision/{id}")
+  public List<UserHistoryDTO> getUserRevisions(@PathVariable Long id) {
+    return userService.getUserHistory(id);
+  }
+
 }
