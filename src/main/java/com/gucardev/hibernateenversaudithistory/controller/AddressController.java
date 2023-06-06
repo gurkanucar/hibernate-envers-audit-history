@@ -38,9 +38,9 @@ public class AddressController {
     return addressService.getById(id);
   }
 
-  @PutMapping("/{id}")
-  public AddressDTO update(@PathVariable Long id, @RequestBody AddressRequest request) {
-    return addressService.update(id, request);
+  @PutMapping
+  public AddressDTO update(@RequestBody AddressRequest request) {
+    return addressService.update(request);
   }
 
   @DeleteMapping("/{id}")

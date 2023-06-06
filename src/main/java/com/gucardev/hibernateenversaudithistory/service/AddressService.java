@@ -41,8 +41,8 @@ public class AddressService {
     return AddressMapper.INSTANCE.addressToAddressDTO(address);
   }
 
-  public AddressDTO update(Long id, AddressRequest addressRequest) {
-    Address address = findAddressById(id);
+  public AddressDTO update(AddressRequest addressRequest) {
+    Address address = findAddressById(addressRequest.getId());
     Address updatedAddress = AddressMapper.INSTANCE.addressRequestToAddress(addressRequest);
     BeanUtils.copyProperties(updatedAddress, address, "id", "user");
     addressRepository.save(address);
