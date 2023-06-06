@@ -1,6 +1,7 @@
 package com.gucardev.hibernateenversaudithistory.controller;
 
 import com.gucardev.hibernateenversaudithistory.dto.AddressDTO;
+import com.gucardev.hibernateenversaudithistory.dto.AddressHistoryDTO;
 import com.gucardev.hibernateenversaudithistory.dto.request.AddressRequest;
 import com.gucardev.hibernateenversaudithistory.service.AddressService;
 import java.util.List;
@@ -46,5 +47,10 @@ public class AddressController {
   @DeleteMapping("/{id}")
   public void delete(@PathVariable Long id) {
     addressService.delete(id);
+  }
+
+  @GetMapping("/revision/{id}")
+  public List<AddressHistoryDTO> getUserRevisions(@PathVariable Long id) {
+    return addressService.getAddressHistory(id);
   }
 }

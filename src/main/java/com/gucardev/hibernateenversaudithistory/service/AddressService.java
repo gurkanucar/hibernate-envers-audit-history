@@ -1,13 +1,21 @@
 package com.gucardev.hibernateenversaudithistory.service;
 
 import com.gucardev.hibernateenversaudithistory.dto.AddressDTO;
+import com.gucardev.hibernateenversaudithistory.dto.AddressHistoryDTO;
 import com.gucardev.hibernateenversaudithistory.dto.request.AddressRequest;
+import com.gucardev.hibernateenversaudithistory.mapper.AddressHistoryMapper;
 import com.gucardev.hibernateenversaudithistory.mapper.AddressMapper;
 import com.gucardev.hibernateenversaudithistory.model.Address;
 import com.gucardev.hibernateenversaudithistory.model.User;
 import com.gucardev.hibernateenversaudithistory.repository.AddressRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.DefaultRevisionEntity;
+import org.hibernate.envers.RevisionType;
+import org.hibernate.envers.query.AuditEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +24,13 @@ public class AddressService {
 
   private final AddressRepository addressRepository;
   private final UserService userService;
+  private final EntityManager entityManager;
 
-  public AddressService(AddressRepository addressRepository, UserService userService) {
+  public AddressService(
+      AddressRepository addressRepository, UserService userService, EntityManager entityManager) {
     this.addressRepository = addressRepository;
     this.userService = userService;
+    this.entityManager = entityManager;
   }
 
   public List<AddressDTO> getAll() {
@@ -61,5 +72,27 @@ public class AddressService {
     return addressRepository
         .findById(id)
         .orElseThrow(() -> new RuntimeException(("Address not found with id: " + id)));
+  }
+
+  public List<AddressHistoryDTO> getAddressHistory(Long id) {
+    AuditReader auditReader = AuditReaderFactory.get(entityManager);
+
+    List<Object[]> revisions =
+        auditReader
+            .createQuery()
+            .forRevisionsOfEntity(Address.class, false, true)
+            .add(AuditEntity.id().eq(id))
+            .getResultList();
+
+    return revisions.stream().map(this::mapToUserHistoryDTO).collect(Collectors.toList());
+  }
+
+  private AddressHistoryDTO mapToUserHistoryDTO(Object[] revision) {
+    Address address = (Address) revision[0];
+    DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) revision[1];
+    RevisionType revisionType = (RevisionType) revision[2];
+
+    return AddressHistoryMapper.INSTANCE.addressToUserHistoryDTO(
+        address, revisionType, revisionEntity);
   }
 }

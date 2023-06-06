@@ -10,4 +10,5 @@ public class AddressRequest {
   private String city;
   private String country;
   private Long userId;
+  private Long id;
 }
