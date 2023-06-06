@@ -5,6 +5,8 @@ import com.gucardev.hibernateenversaudithistory.dto.UserHistoryDTO;
 import com.gucardev.hibernateenversaudithistory.dto.request.UserRequest;
 import com.gucardev.hibernateenversaudithistory.service.UserService;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,32 +27,33 @@ public class UserController {
   }
 
   @PostMapping
-  public UserDTO create(@RequestBody UserRequest request) {
-    return userService.create(request);
+  public ResponseEntity<UserDTO> create(@RequestBody UserRequest request) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(request));
   }
 
   @GetMapping
-  public List<UserDTO> getAll() {
-    return userService.getAll();
+  public ResponseEntity<List<UserDTO>> getAll() {
+    return ResponseEntity.ok(userService.getAll());
   }
 
   @GetMapping("/{id}")
-  public UserDTO getById(@PathVariable Long id) {
-    return userService.getById(id);
+  public ResponseEntity<UserDTO> getById(@PathVariable Long id) {
+    return ResponseEntity.ok(userService.getById(id));
   }
 
   @PutMapping()
-  public UserDTO update(@RequestBody UserRequest request) {
-    return userService.update(request);
+  public ResponseEntity<UserDTO> update(@RequestBody UserRequest request) {
+    return ResponseEntity.ok(userService.update(request));
   }
 
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable Long id) {
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     userService.delete(id);
+    return ResponseEntity.ok().build();
   }
 
   @GetMapping("/revision/{id}")
-  public List<UserHistoryDTO> getUserRevisions(@PathVariable Long id) {
-    return userService.getUserHistory(id);
+  public ResponseEntity<List<UserHistoryDTO>> getUserRevisions(@PathVariable Long id) {
+    return ResponseEntity.ok(userService.getUserHistory(id));
   }
 }

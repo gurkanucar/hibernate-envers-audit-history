@@ -5,6 +5,8 @@ import com.gucardev.hibernateenversaudithistory.dto.AddressHistoryDTO;
 import com.gucardev.hibernateenversaudithistory.dto.request.AddressRequest;
 import com.gucardev.hibernateenversaudithistory.service.AddressService;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,32 +27,33 @@ public class AddressController {
   }
 
   @PostMapping
-  public AddressDTO create(@RequestBody AddressRequest request) {
-    return addressService.create(request);
+  public ResponseEntity<AddressDTO> create(@RequestBody AddressRequest request) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(addressService.create(request));
   }
 
   @GetMapping
-  public List<AddressDTO> getAll() {
-    return addressService.getAll();
+  public ResponseEntity<List<AddressDTO>> getAll() {
+    return ResponseEntity.ok(addressService.getAll());
   }
 
   @GetMapping("/{id}")
-  public AddressDTO getById(@PathVariable Long id) {
-    return addressService.getById(id);
+  public ResponseEntity<AddressDTO> getById(@PathVariable Long id) {
+    return ResponseEntity.ok(addressService.getById(id));
   }
 
   @PutMapping
-  public AddressDTO update(@RequestBody AddressRequest request) {
-    return addressService.update(request);
+  public ResponseEntity<AddressDTO> update(@RequestBody AddressRequest request) {
+    return ResponseEntity.ok(addressService.update(request));
   }
 
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable Long id) {
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     addressService.delete(id);
+    return ResponseEntity.ok().build();
   }
 
   @GetMapping("/revision/{id}")
-  public List<AddressHistoryDTO> getUserRevisions(@PathVariable Long id) {
-    return addressService.getAddressHistory(id);
+  public ResponseEntity<List<AddressHistoryDTO>> getUserRevisions(@PathVariable Long id) {
+    return ResponseEntity.ok(addressService.getAddressHistory(id));
   }
 }
