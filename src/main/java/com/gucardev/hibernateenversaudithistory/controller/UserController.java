@@ -53,5 +53,4 @@ public class UserController {
   public List<UserHistoryDTO> getUserRevisions(@PathVariable Long id) {
     return userService.getUserHistory(id);
   }
-
 }

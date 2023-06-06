@@ -1,6 +1,7 @@
 package com.gucardev.hibernateenversaudithistory.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -18,27 +19,24 @@ import org.mockito.MockitoAnnotations;
 
 class UserServiceTest extends UserServiceTestSupport {
 
-  @Mock
-  private UserRepository userRepository;
+  @Mock private UserRepository userRepository;
 
-  @Mock
-  private EntityManager entityManager;
+  @Mock private EntityManager entityManager;
 
-  private UserService userService;
+  private UserServiceImpl userService;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.openMocks(this);
-    userService = new UserService(userRepository,entityManager);
+    userService = new UserServiceImpl(userRepository, entityManager);
   }
 
   @Test
-   void testCreate_WithValidUserRequest_ReturnsUserDTO() {
+  void testCreate_WithValidUserRequest_ReturnsUserDTO() {
 
     UserRequest userRequest = createUserRequest(1L, "user1");
     User user = createUser(1L, "user1");
     when(userRepository.save(any(User.class))).thenReturn(user);
-
 
     UserDTO result = userService.create(userRequest);
 
