@@ -1,5 +1,19 @@
 # Spring Boot Hibernate Envers Audit History Logging
 
+
+### How to run?
+
+- Docker
+```shell
+docker build -t hibernate-envers . && docker run -d -p 8080:8080 hibernate-envers
+```
+
+- Maven
+```shell
+mvn spring-boot:run
+```
+
+
 ### How Can I use?
 
 - Use ```@Audited``` for generate audit history of entity
