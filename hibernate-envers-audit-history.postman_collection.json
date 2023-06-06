@@ -145,6 +145,26 @@
 			"name": "address",
 			"item": [
 				{
+					"name": "get history",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/address/revision/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"address",
+								"revision",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get addresses",
 					"request": {
 						"method": "GET",
@@ -234,7 +254,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"street\": \"Taksim\",\r\n    \"city\": \"Istanbul\",\r\n    \"country\": \"TR\",\r\n    \"userId\": 1,\r\n    \"id\":1\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"userId\": 2,\r\n    \"street\": \"Taksim_UPDATED\",\r\n    \"city\": \"Istanbul_UPDATED\",\r\n    \"country\": \"TR_UPDATED\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
