@@ -8,6 +8,8 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+    properties:
+      org.hibernate.envers.audit_table_suffix: _history
   h2:
     console:
       enabled: true
