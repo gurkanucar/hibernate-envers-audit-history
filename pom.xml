@@ -4,6 +4,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <packaging>war</packaging>
+  <properties>
+    <java.version>11</java.version>
+    <app.name>hibernate-envers-audit-history</app.name>
+  </properties>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -13,12 +17,15 @@
   <groupId>com.gucardev</groupId>
   <artifactId>hibernate-envers-audit-history</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>hibernate-envers-audit-history</name>
-  <description>hibernate-envers-audit-history</description>
-  <properties>
-    <java.version>11</java.version>
-  </properties>
+  <name>${app.name}</name>
+  <description>${app.name}</description>
+
   <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -65,6 +72,7 @@
   </dependencies>
 
   <build>
+    <finalName>${app.name}</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
